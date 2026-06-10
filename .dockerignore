@@ -1,0 +1,20 @@
+# Python
+aiCat/
+__pycache__/
+*.pyc
+
+# Environment (will be mounted at runtime, not baked into image)
+.env
+
+# Version control / IDE
+.git/
+.claude/
+
+# Runtime data (using Docker volumes instead)
+chroma_data/
+
+# Not needed for frontend
+tests/
+docs/
+scale.json
+*.md

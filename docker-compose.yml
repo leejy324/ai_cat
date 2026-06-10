@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: ai_cat
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      # 覆盖 .env 中的 DATABASE_URL，使用 docker 网络内的 db 主机名
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres123@db:5432/ai_cat
+    volumes:
+      - chroma_data:/app/chroma_data
+    depends_on:
+      db:
+        condition: service_healthy
+    # 启动时先跑数据库迁移，再启动服务
+    command: >
+      sh -c "python -m alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  postgres_data:
+  chroma_data:

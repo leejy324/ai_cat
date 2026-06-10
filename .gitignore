@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 环境变量（含密钥，绝对不能提交）
+.env
+
+# Embedding 模型（1.3GB，需通过 scripts/download_model.py 预下载）
+models/
+
+# 运行时数据（使用 Docker volumes）
+chroma_data/
+
+# 数据库
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# 测试缓存
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log

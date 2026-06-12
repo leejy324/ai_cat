@@ -14,4 +14,3 @@ python-dotenv==1.0.0
 sentence-transformers
 chromadb
 pytest
-sentence_transformers
